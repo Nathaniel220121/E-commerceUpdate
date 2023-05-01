@@ -1,0 +1,494 @@
+<div class="banner inner-page">
+    <div id="carouselExampleCaptions" class="carousel slide inner-page-uder" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="../../../assets/images/inner-banner_.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption">
+                    <h4>My Account</h4>
+                    <div class="pagination-cls">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Account</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+<section class="inner-body my-account profile-page">
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-3">
+                    <ul class="list-group">
+                        <li class="list-group-item current" role="presentation">
+                            <a class="active" id="basicinfoTab" data-bs-toggle="tab" href="#basicinfo" role="tab" aria-controls="basicinfo" aria-selected="true">Basic Information</a>
+                        </li>
+
+                        <li class="list-group-item" role="presentation">
+                            <a id="ContestsTab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="Contests" aria-selected="false">My Orders</a>
+                        </li>
+
+                        <li class="list-group-item"><a class="cursor-pointer text-brown-light" (click)="data.signOutAll()">Log Out</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-9 border p-3">
+                    <div class="tab-content" id="myTabContent">
+
+                        <!-- Tab Basic Onfo -->
+                        <div class="tab-pane fade show active" id="basicinfo" role="tabpanel" aria-labelledby="basicinfoTab">
+                            <div class="row">
+                                <h4 class="title">BASIC INFORMATION</h4>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="upload-set">
+                                            <div class="title">Unique ID: <span class="id_col m-2 text-center userid">{{data.identifier}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 border-end">
+                                    <div class="pro-set pb-md-3">
+                                        <img [src]="data.profileUrl" class="rounded-circle user-profile-thumb" id="blah" alt="Image">
+                                        <div class="upload-set mt-2">
+                                            <div class="file-btn font-bold" *ngIf="!uploader">
+                                                <img src="../../../assets/images/cloud_upload.png" alt="Chosse imge"> Choose Image <input type="file" name="file" id="imgInp" (change)="onFileChanged($event)" #fileInput>
+                                            </div>
+                                            <div class="file-btn font-bold" *ngIf="uploader">
+                                                <img src="../../../assets/images/cloud_upload.png" alt="Chosse imge"> Choose Image <input type="file" name="file" id="imgInp" (change)="onFileChanged($event)" #fileInput>
+                                            </div>
+                                        </div>
+                                        <img [src]="uploadImageUrl" *ngIf="fileAccept" class="rounded-circle user-profile-thumb" id="blah" alt="Image">
+                                        <p class="font-bold imagename" *ngIf="fileAccept">{{file_name}}</p>
+                                        <button *ngIf="fileAccept" class="btn-gold" (click)="uploadImage()">Upload Image</button>
+                                        <div *ngIf="uploader" class="progress my-3 w-100">
+                                            <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: progress + '%' }">
+                                                {{ progress }}%
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-9 pro-left">
+                                    <div class="form-login">
+                                        <div class="row">
+                                            <div class="form-group mb-4 col-sm-6">
+                                                <label class="text-brown font-bold">First Name</label>
+                                                <input type="text" class="form-control" name="firstName" [value]="data.firstName" disabled>
+                                            </div>
+                                            <div class="form-group mb-4 col-sm-6">
+                                                <label class="text-brown font-bold">Last Name</label>
+                                                <input type="text" class="form-control" name="lastName" [value]="data.lastName" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group mb-4 col-sm-6">
+                                                <label class="text-brown font-bold">Email ID</label>
+                                                <input type="text" class="form-control" [value]="data.emailId" disabled>
+                                            </div>
+                                            <div class="form-group mb-4 col-sm-6">
+                                                <label class="text-brown font-bold">Mobile Number</label>
+                                                <input type="text" class="form-control" [value]="data.mobileNo" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group mb-4 col-sm-6">
+                                                <label class="text-brown font-bold">Experience in Years</label>
+                                                <mat-select class="form-control" [formControl]="exprnc">
+                                                    <mat-option value="0-5">0-5</mat-option>
+                                                    <mat-option value="6-10">6-10</mat-option>
+                                                    <mat-option value="16-20">16-20</mat-option>
+                                                    <mat-option value="21-25">21-25</mat-option>
+                                                    <mat-option value="25+">25+</mat-option>
+                                                </mat-select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group mb-4 col-sm-6">
+                                                <label class="text-brown font-bold">Change Password</label>
+                                                <button type="button" class="btn-gold chng-pas" (click)="openChangePassword()">Set New Password</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mb-2">
+                                            <button type="submit" class="btn-green w-100 mb-3" (click)="updateProfileData()">Save Profile</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- My Post -->
+                        <div class="tab-pane fade" id="mypost" role="tabpanel" aria-labelledby="mypostTab">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4 class="title">Coming Soon</h4>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- My Contest -->
+                        <div class="tab-pane fade" id="Contests" role="tabpanel" aria-labelledby="ContestsTab">
+                            <div class="row card-panel" *ngIf="eventsJoinedDetails.length != 0">
+                                <div class="dropdown mb-3">
+                                    <button class="btn-brown dropdown-toggle px-4" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                Filter Events<i class="far fa-sliders-h fa-lg ms-2"></i>
+                            </button>
+                                    <div class="dropdown-menu dropdown-menu-right py-0 mt-1 overflow-hidden" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item cursor-pointer" (click)="filterEvents('all')">ALl Events</a>
+                                        <a class="dropdown-item cursor-pointer" (click)="filterEvents('onGoing')">Ongoing Events</a>
+                                        <a class="dropdown-item cursor-pointer" (click)="filterEvents('upComing')">Upcoming Events</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 {{filterDatas[i]}}" *ngFor="let eventsDetail of eventsJoinedDetails ;let i = index;">
+                                    <div class="card card-custome mb-5 cursor-pointer" [routerLink]="['/event/event-detail/',eventsDetail.eventId]">
+                                        <figure class="d-block card-img">
+                                            <img [src]="eventsDetail.imageURL" class="card-img-top" alt="">
+                                            <div class="date-overly">
+                                                <div class="pb-1" *ngIf="!eventsDetail.dontCalculate">
+                                                    <i class="far fa-calendar-alt mr-2"></i> {{eventsDetail.startDate | date:'medium'}}
+                                                </div>
+                                                <div class="pb-1" *ngIf="eventsDetail.dontCalculate">
+                                                    {{eventsDetail.starting}}
+                                                </div>
+                                            </div>
+                                        </figure>
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{eventsDetail.name}}</h5>
+                                            <a *ngIf="eventTime[i] == 'On-Going'" class="btn btn-green d-block">{{eventTime[i]}}</a>
+                                            <a *ngIf="eventTime[i] == 'Upcoming'" class="btn btn-gold d-block">{{eventTime[i]}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mx-auto" *ngIf="eventsJoinedDetails.length == 0" eventsJoinedDetails>
+                                    <div class="card card-custome mb-5 cursor-pointer">
+                                        <div class="card-body">
+                                            <h5 class="card-title">No joined contests to show</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Wallet -->
+                        <div class="tab-pane fade" id="wallet" role="tabpanel" aria-labelledby="walletTab">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4 class="title">Coming Soon</h4>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- My coins -->
+                        <div class="tab-pane fade" id="coins" role="tabpanel" aria-labelledby="coinsTab">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4 class="title">Coming Soon</h4>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- My coins END -->
+
+                        <!-- Earnings -->
+                        <div class="tab-pane fade" id="earnings" role="tabpanel" aria-labelledby="earningsTab">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="full_top">
+                                        <div class="title">
+                                            <h4>Earnings Report</h4>
+                                        </div>
+                                        <div class="drop_bht">
+                                            <div class="flex_cust">
+                                                <select class="frm d-inline" aria-label="Default select example">
+                                                    <option selected>All Type</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
+                                                <select class="frm d-inline" aria-label="Default select example">
+                                                    <option selected>This Year</option>
+                                                    <option value="1">2000</option>
+                                                    <option value="2">2001</option>
+                                                    <option value="3">2005</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="chart_fit">
+                                        <figure>
+                                            <img src="../../../assets/images/chat.svg" alt="chat" title="chat" class="img-fluid w-100">
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="wlt_set">
+                                        <div class="ear_bx">
+                                            <h4>Total Earnings</h4>
+                                            <div class="mony_total">
+                                                <div class="total_my">Rs. <strong>10,578</strong></div>
+                                                <p>Update every 10 minutes</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="walet_col">
+                                        <div class="mid_bx one_color">
+                                            <h2>Total Win</h2>
+                                            <h4>Rs. 8,578</h4>
+                                        </div>
+                                        <div class="mid_bx two_color">
+                                            <h2>Refer Income</h2>
+                                            <h4>Rs. 1000</h4>
+                                        </div>
+                                        <div class="mid_bx three_color">
+                                            <h2>Coins</h2>
+                                            <h4>Rs. 1000</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Winnings -->
+                        <div class="tab-pane fade" id="winnings" role="tabpanel" aria-labelledby="winningsTab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card card-custome mb-3 price_col">
+                                        <figure class="d-block card-img">
+                                            <img src="../../../assets/images/rep_img.png" class="card-img-top" alt="">
+                                            <div class="cup_set">
+                                                <span class="lable">1</span>
+                                            </div>
+                                        </figure>
+                                        <div class="card-body">
+                                            <h5 class="card-title">Diwali Pahat At Shanmukhananda Hall...</h5>
+                                            <div class="date-overly-not">
+                                                <div class="pb-1">
+                                                    <i class="fa fa-calendar"></i> 15 Aug 2021, 10:00AM
+                                                </div>
+                                            </div>
+                                            <div class="btn-gold-price d-block">You Win <span>Rs.</span> 2500</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card card-custome mb-3 price_col">
+                                        <figure class="d-block card-img">
+                                            <img src="../../../assets/images/rep_img.png" class="card-img-top" alt="">
+                                            <div class="cup_set">
+                                                <span class="lable">2</span>
+                                            </div>
+                                        </figure>
+                                        <div class="card-body">
+                                            <h5 class="card-title">Diwali Pahat At Shanmukhananda Hall...</h5>
+                                            <div class="date-overly-not">
+                                                <div class="pb-1">
+                                                    <i class="fa fa-calendar"></i> 30 Dec 2021, 10:00AM
+                                                </div>
+                                            </div>
+                                            <div class="btn-gold-price d-block">You Win <span>Rs.</span> 2500</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Orders -->
+                        <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="ordersTab">
+                            <div class="row">
+                                <div class="col-12" *ngFor="let order of orderDetails ">
+                                    <div class="order_article" id="pdfTable" #pdfTable>
+                                        <div class="ord_id">Order# {{order.orderId}}</div>
+                                        <div class="ord_wrap">
+                                            <div class="odr_detls">
+                                                <div class="title_dets">{{order.name}}</div>
+                                                <!-- <div class="location">Kolkata</div> -->
+                                                <div class="place">Order Placed : <strong>{{order.createdDate | date:'medium'}}</strong></div>
+                                                <!-- <div class="pay_method">Payment Method : <strong>BHIM UPI</strong></div> -->
+                                                <div class="stutas">Status : <span class="green">{{order.status}}</span></div>
+                                            </div>
+                                            <div class="odr_sumry">
+                                                <div class="title_sum">Summary</div>
+                                                <ul class="sum_list">
+                                                    <!-- <li>Item Subtotal : <span>Rs.{{order.itemTotal}}</span></li> -->
+                                                    <li>GST : <span>Rs.{{order.gstAmount}}</span></li>
+                                                    <li>Grand Total : <span>Rs.{{order.itemTotal}}</span></li>
+                                                </ul>
+                                                <div class="download_gold" (click)="downloadInvoice(order.productId,order.paymentId)"><a class="">Download Invoice</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <form type="hidden" method="post" #dwnldForm action="https://api.themafic.com/api/Mafic/marketPlaceInvoice" name="{{orderForm}}" id="downloadInvoiceID" target="_blank">
+                                        <input name="userId" type="hidden" value="{{data.uID}}" />
+                                        <input name="productId" type="hidden" value="{{prodId}}" />
+                                        <input name="paymentId" type="hidden" value="{{payId}}" />
+                                    </form>
+                                </div>
+
+                            </div>
+
+                            <!-- Orders -->
+                            <!-- <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="ordersTab">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="order_article">
+                                            <div class="ord_id">Order# 407</div>
+                                            <div class="ord_wrap">
+                                                <div class="odr_detls">
+                                                    <div class="title_dets">Independence day 15 august 2021 virtual marathon</div>
+                                                    <div class="location">Kolkata</div>
+                                                    <div class="place">Order Placed : <strong>15 Aug 2021</strong></div>
+                                                    <div class="pay_method">Payment Method : <strong>BHIM UPI</strong></div>
+                                                    <div class="stutas">Status : <span class="green">Completed</span></div>
+                                                </div>
+                                                <div class="odr_sumry">
+                                                    <div class="title_sum">Summary</div>
+                                                    <ul class="sum_list">
+                                                        <li>Item Subtotal : <span>Rs.756.00</span></li>
+                                                        <li>Total : <span>Rs.756.00</span></li>
+                                                        <li>Grand Total : <span>Rs.756.00</span></li>
+                                                    </ul>
+                                                    <div class="download_gold"><a class="">Download Invoice</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="order_article">
+                                            <div class="ord_id">Order# 407</div>
+                                            <div class="ord_wrap">
+                                                <div class="odr_detls">
+                                                    <div class="title_dets">Independence day 15 august 2021 virtual marathon</div>
+                                                    <div class="location">Kolkata</div>
+                                                    <div class="place">Order Placed : <strong>15 Aug 2021</strong></div>
+                                                    <div class="pay_method">Payment Method : <strong>BHIM UPI</strong></div>
+                                                    <div class="stutas">Status : <span class="green">Completed</span></div>
+                                                </div>
+                                                <div class="odr_sumry">
+                                                    <div class="title_sum">Summary</div>
+                                                    <ul class="sum_list">
+                                                        <li>Item Subtotal : <span>Rs.756.00</span></li>
+                                                        <li>Total : <span>Rs.756.00</span></li>
+                                                        <li>Grand Total : <span>Rs.756.00</span></li>
+                                                    </ul>
+                                                    <div class="download_gold"><a class="">Download Invoice</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-12">
+                                        <div class="order_article">
+                                            <div class="ord_id">Order# 407</div>
+                                            <div class="ord_wrap">
+                                                <div class="odr_detls">
+                                                    <div class="title_dets">Independence day 15 august 2021 virtual marathon</div>
+                                                    <div class="location">Kolkata</div>
+                                                    <div class="place">Order Placed : <strong>15 Aug 2021</strong></div>
+                                                    <div class="pay_method">Payment Method : <strong>BHIM UPI</strong></div>
+                                                    <div class="stutas">Status : <span class="green">Completed</span></div>
+                                                </div>
+                                                <div class="odr_sumry">
+                                                    <div class="title_sum">Summary</div>
+                                                    <ul class="sum_list">
+                                                        <li>Item Subtotal : <span>Rs.756.00</span></li>
+                                                        <li>Total : <span>Rs.756.00</span></li>
+                                                        <li>Grand Total : <span>Rs.756.00</span></li>
+                                                    </ul>
+                                                    <div class="download_gold" (click)="downloadInvoice()"><a class="">Download Invoice</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <!-- Subscriptions -->
+                            <div class="tab-pane fade" id="subscriptions" role="tabpanel" aria-labelledby="subscriptionsTab">
+                                <div class="row">
+                                    <div class="col-12 new_subcrb">
+                                        <h4 class="title">Plan</h4>
+                                        <div class="plan_col">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <input type="radio" class="btn-check" name="plan" id="beginnerplan">
+                                                    <label class="btn btn-outline-success" for="beginnerplan">
+                                                    <div class="title_lable">
+                                                        <h1>Beginner</h1>
+                                                        <h4>Rs. 79/<span>month</span></h4>
+                                                    </div>
+                                                    <div class="date_remd">36 Days remaining</div>
+                                                    <div><a href="#" class="btn cancel_sub">Cancel Subscription</a></div>
+                                                </label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="radio" class="btn-check" name="plan" id="professionalplan">
+                                                    <label class="btn btn-outline-success" for="professionalplan">
+                                                    <div class="title_lable">
+                                                        <h1>Professional</h1>
+                                                        <h4>Rs. 58/<span>month</span></h4>
+                                                    </div>
+                                                    <div class="date_remd">365 Days</div>
+                                                    <div><a href="#" class="btn upgrade_sub">Upgrade</a></div>
+                                                </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 new_card">
+                                        <h4 class="title">Payment Method</h4>
+                                        <div class="plan_col">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <input type="radio" class="btn-check" name="card" id="cardnumber_add">
+                                                    <label class="btn btn-outline-success" for="cardnumber_add">
+                                                    <div class="title_lable">
+                                                        <h1>Credit Card</h1>
+                                                    </div>
+                                                    <div class="card_number">XXXX XXXX XXXX XX36</div>
+                                                    <div class="removed">
+                                                        <button type="button" class="btn btn-secondary">
+                                                            <i class="fa fa-calendar"></i>
+                                                      </button>
+                                                    </div>
+                                                </label>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <div class="add_cd"><a href="#"><i class="fas fa-plus-circle"></i></a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

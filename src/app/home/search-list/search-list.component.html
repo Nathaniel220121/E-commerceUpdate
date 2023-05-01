@@ -1,0 +1,60 @@
+<!-- START SECTION BREADCRUMB -->
+<div class="breadcrumb_section bg_gray page-title-mini">
+    <div class="container">
+        <!-- STRART CONTAINER -->
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="page-title">
+                    <h1>Product List</h1>
+                </div>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Product List</li>
+                </ol>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- END CONTAINER-->
+</div>
+<!-- END SECTION BREADCRUMB -->
+
+<!-- START MAIN CONTENT -->
+<div class="main_content">
+
+    <!-- START SECTION SHOP -->
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3" *ngFor="let product of productList">
+                    <div class="item">
+                        <div class="product cursor-pointer">
+                            <div class="product_img">
+                                <a>
+                                    <img [src]="product.images" alt="product_img" [routerLink]="['/product-details',product.id]">
+                                </a>
+                                <div class="product_action_box">
+                                    <ul class="list_none pr_action_btn">
+                                        <li class="add-to-cart"><a class="cursor-pointer"><i (click)="data.addToCart(product.id)" class="fas fa-cart-plus"></i> </a></li>
+                                        <li><a><i (click)="data.addWishList(product.id)" class="fas fa-heart"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="product_info" [routerLink]="['/product-details',product.id]">
+                                <h6 class="product_title"><a> {{product.name}} </a></h6>
+                                <div class="product_price">
+                                    <span class="price">Rs {{product.price}}</span>
+                                    <del>$ {{product.price}}</del>
+                                    <div class="on_sale">
+                                        <span>35% Off</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

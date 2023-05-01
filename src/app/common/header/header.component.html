@@ -1,0 +1,180 @@
+<!-- START HEADER -->
+<header class="header_wrap fixed-top header_with_topbar">
+    <!--
+  <div class="top-header">
+      <div class="container">
+          <div class="row align-items-center">
+              <div class="col-md-6">
+              </div>
+              <div class="col-md-6">
+                  <div class="text-center text-md-end">
+                      <ul class="header_list">
+                          <li>
+                              <a> <img src="../../../assets/images/hdrPhnicn.png" alt="Mobile Icon"><span>123-456-7890</span> </a>
+                          </li>
+                          <li>
+                              <a> <img src="../../../assets/images/hdrMailIcn.png" alt="Email Icon"><span> support@mafic.com </span></a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+-->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding-bottom: initial;">
+        <div class="container-fluid">
+            <a class="navbar-brand" [routerLink]="['/']">
+                <img class="logo_light" src="../../../assets/images/logo_light.png" alt="logo">
+                <img src="../../../assets/images/logo_dark.png" style="margin-left: -24px;margin-top: -10px;" alt="dark" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span style="margin-left: -10px;" class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <form class="d-flex form-inline my-2 my-lg-0 ms-auto">
+                    <!-- <input style="width:425px;" [formControl]="searchText" class="form-control form-control-lg" type="search" placeholder="Search" aria-label="Search"> -->
+                    <input style="width:425px;background-color: white;" type="text" placeholder="Search here" aria-label="Number" matInput [formControl]="searchText" [matAutocomplete]="auto" class="form-control form-control-lg">
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of productList | async" [value]="option.name">
+                            {{option.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <button class="btn btn-outline-primary" type="submit" (click)="data.searchResult(searchText.value)"><i class="fas fa-search"></i></button>
+                    <!-- <div class="search_overlay">
+                        <ul *ngFor="let item of data.searchData | filter: searchText">
+                            <li>{{item}}</li>
+                        </ul>
+                    </div> -->
+                </form>
+
+                <ul class="nav navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a *ngIf="!data.loginFlag" class="nav-link cursor-pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Login" data-bs-toggle="modal" data-bs-target="#login_pup"><i class="fas fa-user" style="color: #0d6efd;"></i></a>
+                        <div *ngIf="data.loginFlag" class="nav-link cursor-pointer login-a d-flex align-items-center dropdown">
+                            <a class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="userNav">
+                                <!--<img [src]="data.profileUrl" class="img-circle top-nav-user" alt="Profile Image"> -->
+                                <i class="fas fa-user" style="color: #0d6efd;"></i>
+                            </a>
+                            <div class="dropdown-menu user-menu" aria-labelledby="userNav">
+                                <a class="dropdown-item" style="background-color: white;" [routerLink]="['/profile']">My Profile</a>
+                                <a class="dropdown-item" style="background-color: white;" (click)="data.signOutAll()">Logout</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown cart_dropdown" *ngIf="data.loginFlag"><a class="nav-link cart_trigger" data-bs-toggle="tooltip" data-bs-placement="top" title="Cart" data-bs-toggle="dropdown"><i class="fas fa-shopping-cart" style="color: #0d6efd;"></i></a>
+                        <div class="cart_box dropdown-menu dropdown-menu-right">
+                            <ul class="cart_list">
+                                <li *ngFor="let cartInfo of data.miniCartData">
+                                    <a class="item_remove"><i class="ion-close"></i></a>
+                                    <a><img [src]="cartInfo.image" alt="cart_thumb1">{{cartInfo.name}}</a>
+                                    <span class="cart_quantity"> 1 x <span class="cart_amount"> <span class="price_symbole">Rs</span></span>{{cartInfo.price}}</span>
+                                </li>
+                                <!--  <li>
+                        <a class="item_remove"><i class="ion-close"></i></a>
+                        <a><img src="../../../assets/images/cart_thamb2.jpg" alt="cart_thumb2">Ornare sed consequat</a>
+                        <span class="cart_quantity"> 1 x <span class="cart_amount"> <span class="price_symbole">$</span></span>81.00</span>
+                    </li> -->
+                            </ul>
+                            <div class="cart_footer" style="background-color: white;">
+                                <p *ngIf="data.carData.length>2" class="cart_total" style="text-align: center;">+{{(data.carData.length-2)}} more</p>
+                                <p class="cart_buttons">
+                                    <a class="button-cart" [routerLink]="['/cart']">View Cart</a>
+                                    <a class="button-checkout">Checkout</a></p>
+                                <!-- btn btn-fill-out rounded-0 checkout btn btn-fill-line rounded-0 view-cart-->
+                            </div>
+                            <div class="text-center">
+                            </div>
+                        </div>
+                    </li>
+                    <li *ngIf="data.loginFlag">
+                        <a class="nav-link cursor-pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist" data-bs-toggle="modal" data-bs-target="#" [routerLink]="['/wish-list']">
+                            <i class="fas fa-heart" style="color: #0d6efd;"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<!-- END HEADER -->
+
+<!-- Login Pop-up -->
+<div class="modal fade login-pup header-pop" id="login_pup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="../../../assets/images/logo.png" alt="Mafic Logo" title="Mafic Logo">
+                <h5 class="modal-title" id="exampleModalLabel">Sign In with Mafic</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+                <div class="card form-login border-0">
+                    <div class="form-group mb-3">
+                        <mat-form-field>
+                            <mat-label>Enter you Email ID</mat-label>
+                            <input matInput required placeholder="Enter Email ID" [formControl]="emailID">
+                            <mat-error *ngIf="emailID.invalid">{{emailValidate()}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group mb-3">
+                        <mat-form-field>
+                            <mat-label>Enter your Password</mat-label>
+                            <input matInput required placeholder="Enter Password" [type]="hide ? 'password' : 'text'" [formControl]="password">
+                            <mat-error *ngIf="password.invalid">{{passwordVerify()}}</mat-error>
+                            <mat-error>{{erroMessage}}</mat-error>
+                            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <mat-checkbox required [formControl]="remember" (change)="rememberFunc()" class=" example-margin">Remember Me</mat-checkbox>
+                        </div>
+                        <div class="col-sm-6">
+                            <a (click)="openForgotPass()" class="d-block font-sm cursor-pointer text-green text-end">Forgot password?</a>
+                        </div>
+                    </div>
+                    <div class="form-group mb-2">
+                        <button type="submit" [disabled]="loginForm.invalid" class="btn-green w-100" (click)="logCheck()">Login</button>
+                    </div>
+                    <div class="form-group mb-2">
+                        <div class="btn-outline" (click)="openRegister()">
+                            <p>Not registered yet? <a>Create an Account</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Forgot Pop-up -->
+<div class="modal fade login-pup header-pop" id="forgot_pup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="../../../assets/images/logo.png" alt="Mafic Logo" title="Mafic Logo">
+                <h5 class="modal-title" id="exampleModalLabel">Password Assistance</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+                <div class="card form-login border-0">
+                    <div class="form-group mb-3">
+                        <p class="forgot-head">Enter the E-mail address associated with your Mafic account.</p>
+                    </div>
+                    <div class="form-group mb-3">
+                        <mat-form-field>
+                            <mat-label>Enter you Email ID</mat-label>
+                            <input matInput required placeholder="Enter Email ID" [formControl]="forEmailID">
+                            <mat-error *ngIf="forEmailID.invalid">{{emailValidate2()}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group mb-2">
+                        <button type="submit" [disabled]="forEmailID.invalid" class="btn-green w-100" (click)="forgotPaswd()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+mat-form-field,
+mat-raised-button {
+    width: 100% !important;
+}
+
+a {
+    text-decoration: none;
+    font-weight: normal;
+}
+
+.text-green {
+    color: green;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.popupHead {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 100%;
+    background-color: rgb(0 0 0 / 67%);
+    z-index: 2000;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.poper {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+.poperHead {
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+.poperClose {
+    position: absolute;
+    top: 8px;
+    right: 14px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.eye-icon-small {
+    transform: scale(0.8);
+}

@@ -1,0 +1,35 @@
+.text-green {
+    color: green;
+}
+
+.we_do_caption .font-20 {
+    font-weight: 600;
+    font-size: 22px;
+}
+
+.right_ped .title_col {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.right_ped .title_col span {
+    color: #8BC540;
+}
+
+.bigScreen {
+    display: block;
+}
+
+.smallScreen {
+    display: none;
+}
+
+@media screen and (max-width: 1024px) {
+    .bigScreen {
+        display: none;
+    }
+    .smallScreen {
+        display: block;
+    }
+}

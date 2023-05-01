@@ -1,0 +1,32 @@
+.button-cart {
+  background-color:#ffc107;
+   border: none;
+   color: #212529;
+   padding: 12px 20px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 15px;
+   margin-top: 4px;
+   margin-right: 2px;
+   margin-bottom: 4px;
+   margin-left: 2px;
+   cursor: pointer;
+}
+
+
+.button-wishlist {
+ background-color: #8BC540;
+   border: none;
+   color: #212529;
+   padding: 12px 12px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 15px;
+   margin-top: 4px;
+   margin-right: 2px;
+   margin-bottom: 4px;
+   margin-left: 2px;
+   cursor: pointer;
+}

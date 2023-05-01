@@ -1,0 +1,94 @@
+<!-- START SECTION BREADCRUMB -->
+<div class="breadcrumb_section bg_gray page-title-mini">
+  <div class="container">
+      <!-- STRART CONTAINER -->
+      <div class="row align-items-center">
+          <div class="col-md-12">
+              <div class="page-title">
+                  <h1> Shopping Cart </h1>
+              </div>
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active">wish List</li>
+              </ol>
+
+          </div>
+
+      </div>
+  </div>
+  <!-- END CONTAINER-->
+</div>
+<!-- END SECTION BREADCRUMB -->
+
+
+
+<!-- START MAIN CONTENT -->
+<div class="main_content">
+
+  <!-- START SECTION SHOP -->
+  <section class="inner-body my-gallery my-events-details">
+      <div class="container-fluid">
+          <div class="row">
+
+              <div class="col-md-12">
+                  <div class="d-flex border-bottom pb-3 justify-content-between">
+                      <h6 class="font-regular font-md text-black mb-0">Items in your wishlist</h6>
+                      <p class="font-regular font-md text-black"><span class="font-bold">({{data.wishData.length}})</span> items</p>
+                  </div>
+                  <div class="cart-items">
+                      <div class="cart-single-row" *ngFor="let wishItem of data.wishData">
+                          <div class="row">
+                              <div class="col-md-3 cursor-pointer" [routerLink]="['/market/market-details',wishItem.productId]">
+                                  <img [src]="wishItem.image" class="cart-product-thumb" alt="Image">
+                              </div>
+                              <div class="col-md-3 cursor-pointer" [routerLink]="['/market/market-details',wishItem.productId]">
+                                  <div class="cart-single-header">
+                                      <p>{{wishItem.name | titlecase}}</p>
+                                  </div>
+                                  <p class="font-xs text-black">{{wishItem.description | slice:0:80}}</p>
+                              </div>
+                              <!-- <div class="col-md-2">
+                                  <div class="cart-single-header">
+                                      <p>Quantity</p>
+                                  </div>
+                                  <div class="single-product-num">
+                                      <select>
+                                          <option>1</option>
+                                          <option>2</option>
+                                          <option>3</option>
+                                          <option>4</option>
+                                          <option>5</option>
+                                      </select>
+                                  </div>
+                              </div> -->
+                              <div class="col-md-2">
+                                  <div class="cart-single-header">
+                                      <p>Price</p>
+                                  </div>
+                                  <h6 class="font-bolder font-md text-black">Rs.{{wishItem.price}}</h6>
+                              </div>
+
+                              <div class="col-md-2">
+                                  <div class="cart-single-header">
+                                      <p>Remove</p>
+                                  </div>
+                                  <a class="remove-button-color" (click)="data.removeItemFromWishlist(wishItem.productId)">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;  <i class="fas fa-trash"></i> </a>
+                                  <!--<td class="text-right"><button type="button" class="btn btn-transparent"><i class="fas fa-trash"></i></button></td>-->
+                              </div>
+
+                              <div class="col-md-2">
+                                <div class="cart-single-header">
+                                  <p>Add to cart</p>
+                                </div>
+                                <a (click)="data.addToCart(wishItem.productId)">
+                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-cart-plus"></i> </a>
+                             </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  <!-- END SECTION SHOP -->

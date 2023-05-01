@@ -1,0 +1,177 @@
+<div class="clearfix"></div>
+<section class="about_us cut-pad">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 pe-5">
+                <div class="about_caption">
+                    <h2 class="title">{{firstDetails.title}}</h2>
+                    <p>{{firstDetails.content}}</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <figure class="about_img">
+                    <img [src]="firstDetails.image" class="img-fluid" alt="About US">
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="clearfix"></div>
+
+<section class="who_we_are">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 p-0 col-left">
+                <figure class="who_img text-center">
+                    <img [src]="secondDetails.image" alt="About us" class="img-fluid w-90">
+                </figure>
+            </div>
+            <div class="col-md-6 right_ped">
+                <h2 class="title_col">{{secondDetails.title}}</h2>
+                <h5><u>{{secondDetails.h5Title1}}</u></h5>
+                <p class="break-newline">{{secondDetails.h5Content1}}</p>
+                <h5><u>{{secondDetails.h5Title2}}</u></h5>
+                <p class="break-newline">{{secondDetails.h5Content2}}</p>
+                <h5><u>{{secondDetails.h5Title3}}</u></h5>
+                <p class="break-newline">{{secondDetails.h5Content3}}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="clearfix"></div>
+
+<section class="contests">
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="contest_caption">
+                        <h2>{{thirdDetails.title}}</h2>
+                        <p class="break-newline">{{thirdDetails.content}}</p>
+                        <div class="benifit_cls">
+                            <ul>
+                                <li>{{thirdDetails.point1}}</li>
+                                <li>{{thirdDetails.point2}}</li>
+                                <li>{{thirdDetails.point3}}</li>
+                            </ul>
+                        </div>
+                        <div class="rating" *ngIf="thirdDetails.number1">
+                            <ul class="numberBlock">
+                                <li *ngIf="thirdDetails.number1 != null">
+                                    <h2>{{thirdDetails.number1}}<sup>+</sup></h2>
+                                    <span>{{thirdDetails.text1}}</span>
+                                </li>
+                                <li *ngIf="thirdDetails.number2 != null">
+                                    <h2>{{thirdDetails.number2}}<sup>+</sup></h2>
+                                    <span>{{thirdDetails.text2}}</span>
+                                </li>
+                                <li *ngIf="thirdDetails.number3 != null">
+                                    <h2>{{thirdDetails.number3}}<sup>+</sup></h2>
+                                    <span>{{thirdDetails.text3}}</span>
+                                </li>
+                                <li *ngIf="thirdDetails.number4 != null">
+                                    <h2>{{thirdDetails.number4}}<sup>+</sup></h2>
+                                    <span>{{thirdDetails.text4}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <figure>
+                        <img [src]="thirdDetails.image" class="img-fluid" alt="About US">
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="clearfix"></div>
+
+<section class="we_do" style="background: url({{fourthDetails.image}}) no-repeat center;background-size: cover;">
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="we_do_caption">
+                        <h1 class="title_col">{{fourthDetails.h1Title}}</h1>
+                        <p class="text-justify font-20">{{fourthDetails.pTitle}}</p>
+                        <p>{{fourthDetails.content1}}</p>
+                        <p>{{fourthDetails.content2}}</p>
+                        <p>{{fourthDetails.content3}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="clearfix"></div>
+
+<section class="features_area">
+    <div class="container-fluid">
+        <div class="container_col">
+            <div class="row">
+                <div class="col-md-6">
+                    <figure>
+                        <img [src]="fifthDetails.image" alt="About Us" title="About Us" class="img-fluid">
+                    </figure>
+                </div>
+                <div class="col-md-6">
+                    <div class="fut_caption p-right">
+                        <h1 class="title_col">{{fifthDetails.title}}</h1>
+                        <div class="benifit_cls">
+                            <ul>
+                                <li>{{fifthDetails.point1}}</li>
+                                <li>{{fifthDetails.point2}}</li>
+                                <li *ngIf="fifthDetails.point3 != null">{{fifthDetails.point3}}</li>
+                                <li *ngIf="fifthDetails.point4 != null">{{fifthDetails.point4}}</li>
+                                <li *ngIf="fifthDetails.point5 != null">{{fifthDetails.point5}}</li>
+                                <li *ngIf="fifthDetails.point6 != null">{{fifthDetails.point6}}</li>
+                                <li *ngIf="fifthDetails.point7 != null">{{fifthDetails.point7}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="clearfix"></div>
+
+<section class="out_team d-none">
+    <div class="container-fluid">
+        <div class="container_fl">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1 class="title_col">Meet Our Team</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <owl-carousel-o [options]="customOptions">
+                        <ng-template carouselSlide *ngFor="let teamDetail of teamDetails;let i = index;">
+                            <div class="item">
+                                <div class="card team_card">
+                                    <figure>
+                                        <img [src]="teamDetail.image" alt="Team Photo" class="img-rund">
+                                    </figure>
+                                    <div class="team_caption">
+                                        <h3 class="name">{{teamDetail.name}}</h3>
+                                        <h4 class="dirc">{{teamDetail.profession}}</h4>
+                                        <p>{{teamDetail.experience}}</p>
+                                        <p class="text-justify">{{teamDetail.content}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </owl-carousel-o>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

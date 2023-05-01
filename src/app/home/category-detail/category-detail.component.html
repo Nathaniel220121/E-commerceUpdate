@@ -1,0 +1,560 @@
+<div class="section small_pb">
+  <div class="container">
+      <div class="row">
+          <div class="col-12">
+              <div class="heading_tab_header">
+                  <div class="heading_s2">
+                      <h2>Category Details</h2>
+                  </div>
+                  <div class="tab-style2">
+                      <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#tabmenubar" aria-expanded="false">
+                      <span class="ion-android-menu"></span>
+                  </button>
+                      <ul class="nav nav-tabs justify-content-center justify-content-md-end" id="tabmenubar" role="tablist">
+                          <li class="nav-item">
+                              <a class="nav-link cursor-pointer active" id="arrival-tab" data-bs-toggle="tab" data-bs-target="#arrival" role="tab" aria-controls="arrival" aria-selected="true"> Philosophy  </a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link cursor-pointer" id="sellers-tab" data-bs-toggle="tab" data-bs-target="#sellers" role="tab" aria-controls="sellers" aria-selected="false">Psychology </a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link cursor-pointer" id="featured-tab" data-bs-toggle="tab" data-bs-target="#featured" role="tab" aria-controls="featured" aria-selected="false">Imagination </a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link cursor-pointer" id="special-tab" data-bs-toggle="tab" data-bs-target="#special" role="tab" aria-controls="special" aria-selected="false">Philosophy
+                        </a>
+                          </li>
+                      </ul> -->
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+
+      <div class="row">
+          <div class="col-12">
+              <div class="tab_slider">
+                  <div class="tab-pane fade show active" id="arrival" role="tabpanel" aria-labelledby="arrival-tab">
+                      <owl-carousel-o class="new-arrival-carousel" [options]="customOptions">
+                          <ng-template carouselSlide *ngFor="let key of categoryDatas">
+                              <div class="item fix-width-new-arrival">
+                                  <div *ngIf="this.resCode == 814" style="text-align: center;font-size: 18px;font-weight: 700;font-style: italic;">
+                                       No products are available in this category
+                                 </div>
+                                  <div *ngIf="key.id != undefined" class="product">
+                                      <div class="product_img">
+                                          <a href="{{'category-detail/' + key.id }}">
+                                              <img src="{{key.images}}" alt="product_img1">
+                                          </a>
+                                          <div class="product_action_box">
+                                              <ul class="list_none pr_action_btn">
+                                                  <li class="add-to-cart"><a  (click)="data.addToCart(key.id)">
+                                                    <i class="fas fa-cart-plus"></i> </a></li>
+                                                  <li><a (click)="data.addWishList(key.id)" ><i class="fas fa-heart"></i></a></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="product_info">
+                                          <h6 class="product_title"><a>
+                                            {{key.name}} </a> </h6>
+                                          <!--
+                                          <div class="product_price">
+                                              <span class="price">Rs. {{key.price}}</span>
+                                              <del>Rs 55.25</del>
+                                              <div class="on_sale">
+                                                  <span>35% Off</span>
+                                              </div>
+                                          </div>-->
+                                          <div class="product_price" *ngIf ="key.discount!=0">
+                                            <span class="price">Rs.{{key.price - ((key.discount*key.price)/100.0) | number:'1.0-0'}}</span>&nbsp;
+                                            <del>Rs. {{key.price}}</del>&nbsp;
+                                            <div class="on_sale">
+                                                <span>{{key.discount}}% Off</span>
+                                            </div>
+                                         </div>
+                                        <div class="product_price" *ngIf ="key.discount==0">
+                                          <span class="price">Rs.{{key.price}}</span>&nbsp;
+                                        </div>
+                                          <div class="rating_wrap">
+                                              <div class="rating">
+                                                  <div class="product_rate" style="width:80%"></div>
+                                              </div>
+                                              <span class="rating_num">(21)</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </ng-template>
+                      </owl-carousel-o>
+                  </div>
+                <!--
+                  <div class="row">
+                    <div class="col-12">
+                        <div class="tab_slider">
+                            <div class="tab-pane fade show active" id="arrival" role="tabpanel" aria-labelledby="arrival-tab">
+                                <owl-carousel-o class="new-arrival-carousel" [options]="customOptions1">
+                                    <ng-template carouselSlide *ngFor="let key of categoryDatas">
+                                        <div class="item fix-width-new-arrival">
+                                            <div class="product ">
+                                                <div class="product_img">
+                                                    <a href="{{'category-details/' + key.id }}">
+                                                        <img src="{{key.images}}" alt="product_img1">
+                                                    </a>
+                                                    <div class="product_action_box">
+                                                        <ul class="list_none pr_action_btn">
+                                                            <li class="add-to-cart"><a href="#" (click)="data.addToCart(key.id)">
+                                                              <i class="fas fa-cart-plus"></i> </a></li>
+                                                            <li><a href="#" (click)="data.addWishList(key.id)" ><i class="fas fa-heart"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="product_info">
+                                                    <h6 class="product_title"><a href="
+                                                      {{'product-details/' + key.id }}"> {{key.name}} </a></h6>
+                                                    <div class="product_price">
+                                                        <span class="price">Rs 45.00</span>
+                                                        <del>Rs 55.25</del>
+                                                        <div class="on_sale">
+                                                            <span>35% Off</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="rating_wrap">
+                                                        <div class="rating">
+                                                            <div class="product_rate" style="width:80%"></div>
+                                                        </div>
+                                                        <span class="rating_num">(21)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </owl-carousel-o>
+                            </div>
+
+
+
+
+                  <div class="tab-pane fade" id="sellers" role="tabpanel" aria-labelledby="sellers-tab">
+                      <owl-carousel-o [options]="customOptions1">
+                          <ng-template carouselSlide>
+                              <div class="item">
+                                  <div class="product">
+                                      <div class="product_img">
+                                          <a href="shop-product-detail.html">
+                                              <img src="../../../assets/images/product_img1.jpg" alt="product_img1">
+                                          </a>
+                                          <div class="product_action_box">
+                                              <ul class="list_none pr_action_btn">
+                                                  <li class="add-to-cart"><a href="#"><i class="fas fa-cart-plus"></i> </a></li>
+                                                  <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="product_info">
+                                          <h6 class="product_title"><a href="shop-product-detail.html"> Lorem Spam product </a></h6>
+                                          <div class="product_price">
+                                              <span class="price">$45.00</span>
+                                              <del>$55.25</del>
+                                              <div class="on_sale">
+                                                  <span>35% Off</span>
+                                              </div>
+                                          </div>
+                                          <div class="rating_wrap">
+                                              <div class="rating">
+                                                  <div class="product_rate" style="width:80%"></div>
+                                              </div>
+                                              <span class="rating_num">(21)</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </ng-template>
+                          <ng-template carouselSlide>
+                              <div class="item">
+                                  <div class="product">
+                                      <div class="product_img">
+                                          <a href="shop-product-detail.html">
+                                              <img src="../../../assets/images/product_img2.jpg" alt="product_img1">
+                                          </a>
+                                          <div class="product_action_box">
+                                              <ul class="list_none pr_action_btn">
+                                                  <li class="add-to-cart"><a href="#"><i class="fas fa-cart-plus"></i> </a></li>
+                                                  <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="product_info">
+                                          <h6 class="product_title"><a href="shop-product-detail.html"> Lorem Spam product </a></h6>
+                                          <div class="product_price">
+                                              <span class="price">$45.00</span>
+                                              <del>$55.25</del>
+                                              <div class="on_sale">
+                                                  <span>35% Off</span>
+                                              </div>
+                                          </div>
+                                          <div class="rating_wrap">
+                                              <div class="rating">
+                                                  <div class="product_rate" style="width:80%"></div>
+                                              </div>
+                                              <span class="rating_num">(21)</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </ng-template>
+                          <ng-template carouselSlide>
+                              <div class="item">
+                                  <div class="product">
+                                      <div class="product_img">
+                                          <a href="shop-product-detail.html">
+                                              <img src="../../../assets/images/product_img1.jpg" alt="product_img1">
+                                          </a>
+                                          <div class="product_action_box">
+                                              <ul class="list_none pr_action_btn">
+                                                  <li class="add-to-cart"><a href="#"><i class="fas fa-cart-plus"></i> </a></li>
+                                                  <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="product_info">
+                                          <h6 class="product_title"><a href="shop-product-detail.html"> Lorem Spam product </a></h6>
+                                          <div class="product_price">
+                                              <span class="price">$45.00</span>
+                                              <del>$55.25</del>
+                                              <div class="on_sale">
+                                                  <span>35% Off</span>
+                                              </div>
+                                          </div>
+                                          <div class="rating_wrap">
+                                              <div class="rating">
+                                                  <div class="product_rate" style="width:80%"></div>
+                                              </div>
+                                              <span class="rating_num">(21)</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </ng-template>
+                          <ng-template carouselSlide>
+                              <div class="item">
+                                  <div class="product">
+                                      <div class="product_img">
+                                          <a href="shop-product-detail.html">
+                                              <img src="../../../assets/images/product_img2.jpg" alt="product_img1">
+                                          </a>
+                                          <div class="product_action_box">
+                                              <ul class="list_none pr_action_btn">
+                                                  <li class="add-to-cart"><a href="#"><i class="fas fa-cart-plus"></i> </a></li>
+                                                  <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="product_info">
+                                          <h6 class="product_title"><a href="shop-product-detail.html"> Lorem Spam product </a></h6>
+                                          <div class="product_price">
+                                              <span class="price">$45.00</span>
+                                              <del>$55.25</del>
+                                              <div class="on_sale">
+                                                  <span>35% Off</span>
+                                              </div>
+                                          </div>
+                                          <div class="rating_wrap">
+                                              <div class="rating">
+                                                  <div class="product_rate" style="width:80%"></div>
+                                              </div>
+                                              <span class="rating_num">(21)</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </ng-template>
+                      </owl-carousel-o>
+                  </div>
+
+
+
+
+                  <div class="tab-pane fade" id="featured" role="tabpanel" aria-labelledby="featured-tab">
+                      <owl-carousel-o [options]="customOptions1">
+                          <ng-template carouselSlide>
+                              <div class="item">
+                                  <div class="product">
+                                      <div class="product_img">
+                                          <a href="shop-product-detail.html">
+                                              <img src="../../../assets/images/product_img1.jpg" alt="product_img1">
+                                          </a>
+                                          <div class="product_action_box">
+                                              <ul class="list_none pr_action_btn">
+                                                  <li class="add-to-cart"><a href="#"><i class="fas fa-cart-plus"></i> </a></li>
+                                                  <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="product_info">
+                                          <h6 class="product_title"><a href="shop-product-detail.html"> Lorem Spam product </a></h6>
+                                          <div class="product_price">
+                                              <span class="price">$45.00</span>
+                                              <del>$55.25</del>
+                                              <div class="on_sale">
+                                                  <span>35% Off</span>
+                                              </div>
+                                          </div>
+                                          <div class="rating_wrap">
+                                              <div class="rating">
+                                                  <div class="product_rate" style="width:80%"></div>
+                                              </div>
+                                              <span class="rating_num">(21)</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </ng-template>
+                          <ng-template carouselSlide>
+                              <div class="item">
+                                  <div class="product">
+                                      <div class="product_img">
+                                          <a href="shop-product-detail.html">
+                                              <img src="../../../assets/images/product_img2.jpg" alt="product_img1">
+                                          </a>
+                                          <div class="product_action_box">
+                                              <ul class="list_none pr_action_btn">
+                                                  <li class="add-to-cart"><a href="#"><i class="fas fa-cart-plus"></i> </a></li>
+                                                  <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="product_info">
+                                          <h6 class="product_title"><a href="shop-product-detail.html"> Lorem Spam product </a></h6>
+                                          <div class="product_price">
+                                              <span class="price">$45.00</span>
+                                              <del>$55.25</del>
+                                              <div class="on_sale">
+                                                  <span>35% Off</span>
+                                              </div>
+                                          </div>
+                                          <div class="rating_wrap">
+                                              <div class="rating">
+                                                  <div class="product_rate" style="width:80%"></div>
+                                              </div>
+                                              <span class="rating_num">(21)</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </ng-template>
+                          <ng-template carouselSlide>
+                              <div class="item">
+                                  <div class="product">
+                                      <div class="product_img">
+                                          <a href="shop-product-detail.html">
+                                              <img src="../../../assets/images/product_img1.jpg" alt="product_img1">
+                                          </a>
+                                          <div class="product_action_box">
+                                              <ul class="list_none pr_action_btn">
+                                                  <li class="add-to-cart"><a href="#"><i class="fas fa-cart-plus"></i> </a></li>
+                                                  <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="product_info">
+                                          <h6 class="product_title"><a href="shop-product-detail.html"> Lorem Spam product </a></h6>
+                                          <div class="product_price">
+                                              <span class="price">$45.00</span>
+                                              <del>$55.25</del>
+                                              <div class="on_sale">
+                                                  <span>35% Off</span>
+                                              </div>
+                                          </div>
+                                          <div class="rating_wrap">
+                                              <div class="rating">
+                                                  <div class="product_rate" style="width:80%"></div>
+                                              </div>
+                                              <span class="rating_num">(21)</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </ng-template>
+                          <ng-template carouselSlide>
+                              <div class="item">
+                                  <div class="product">
+                                      <div class="product_img">
+                                          <a href="shop-product-detail.html">
+                                              <img src="../../../assets/images/product_img2.jpg" alt="product_img1">
+                                          </a>
+                                          <div class="product_action_box">
+                                              <ul class="list_none pr_action_btn">
+                                                  <li class="add-to-cart"><a href="#"><i class="fas fa-cart-plus"></i> </a></li>
+                                                  <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="product_info">
+                                          <h6 class="product_title"><a href="shop-product-detail.html"> Lorem Spam product </a></h6>
+                                          <div class="product_price">
+                                              <span class="price">$45.00</span>
+                                              <del>$55.25</del>
+                                              <div class="on_sale">
+                                                  <span>35% Off</span>
+                                              </div>
+                                          </div>
+                                          <div class="rating_wrap">
+                                              <div class="rating">
+                                                  <div class="product_rate" style="width:80%"></div>
+                                              </div>
+                                              <span class="rating_num">(21)</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </ng-template>
+                      </owl-carousel-o>
+                  </div>
+
+
+
+
+
+                  <div class="tab-pane fade" id="special" role="tabpanel" aria-labelledby="special-tab">
+                      <owl-carousel-o [options]="customOptions1">
+                          <ng-template carouselSlide>
+                              <div class="item">
+                                  <div class="product">
+                                      <div class="product_img">
+                                          <a href="shop-product-detail.html">
+                                              <img src="../../../assets/images/product_img1.jpg" alt="product_img1">
+                                          </a>
+                                          <div class="product_action_box">
+                                              <ul class="list_none pr_action_btn">
+                                                  <li class="add-to-cart"><a href="#"><i class="fas fa-cart-plus"></i> </a></li>
+                                                  <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="product_info">
+                                          <h6 class="product_title"><a href="shop-product-detail.html"> Lorem Spam product </a></h6>
+                                          <div class="product_price">
+                                              <span class="price">$45.00</span>
+                                              <del>$55.25</del>
+                                              <div class="on_sale">
+                                                  <span>35% Off</span>
+                                              </div>
+                                          </div>
+                                          <div class="rating_wrap">
+                                              <div class="rating">
+                                                  <div class="product_rate" style="width:80%"></div>
+                                              </div>
+                                              <span class="rating_num">(21)</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </ng-template>
+                          <ng-template carouselSlide>
+                              <div class="item">
+                                  <div class="product">
+                                      <div class="product_img">
+                                          <a href="shop-product-detail.html">
+                                              <img src="../../../assets/images/product_img2.jpg" alt="product_img1">
+                                          </a>
+                                          <div class="product_action_box">
+                                              <ul class="list_none pr_action_btn">
+                                                  <li class="add-to-cart"><a href="#"><i class="fas fa-cart-plus"></i> </a></li>
+                                                  <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="product_info">
+                                          <h6 class="product_title"><a href="shop-product-detail.html"> Lorem Spam product </a></h6>
+                                          <div class="product_price">
+                                              <span class="price">$45.00</span>
+                                              <del>$55.25</del>
+                                              <div class="on_sale">
+                                                  <span>35% Off</span>
+                                              </div>
+                                          </div>
+                                          <div class="rating_wrap">
+                                              <div class="rating">
+                                                  <div class="product_rate" style="width:80%"></div>
+                                              </div>
+                                              <span class="rating_num">(21)</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </ng-template>
+                          <ng-template carouselSlide>
+                              <div class="item">
+                                  <div class="product">
+                                      <div class="product_img">
+                                          <a href="shop-product-detail.html">
+                                              <img src="../../../assets/images/product_img1.jpg" alt="product_img1">
+                                          </a>
+                                          <div class="product_action_box">
+                                              <ul class="list_none pr_action_btn">
+                                                  <li class="add-to-cart"><a href="#"><i class="fas fa-cart-plus"></i> </a></li>
+                                                  <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="product_info">
+                                          <h6 class="product_title"><a href="shop-product-detail.html"> Lorem Spam product </a></h6>
+                                          <div class="product_price">
+                                              <span class="price">$45.00</span>
+                                              <del>$55.25</del>
+                                              <div class="on_sale">
+                                                  <span>35% Off</span>
+                                              </div>
+                                          </div>
+                                          <div class="rating_wrap">
+                                              <div class="rating">
+                                                  <div class="product_rate" style="width:80%"></div>
+                                              </div>
+                                              <span class="rating_num">(21)</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </ng-template>
+                          <ng-template carouselSlide>
+                              <div class="item">
+                                  <div class="product">
+                                      <div class="product_img">
+                                          <a href="shop-product-detail.html">
+                                              <img src="../../../assets/images/product_img2.jpg" alt="product_img1">
+                                          </a>
+                                          <div class="product_action_box">
+                                              <ul class="list_none pr_action_btn">
+                                                  <li class="add-to-cart"><a href="#"><i class="fas fa-cart-plus"></i> </a></li>
+                                                  <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="product_info">
+                                          <h6 class="product_title"><a href="shop-product-detail.html"> Lorem Spam product </a></h6>
+                                          <div class="product_price">
+                                              <span class="price">$45.00</span>
+                                              <del>$55.25</del>
+                                              <div class="on_sale">
+                                                  <span>35% Off</span>
+                                              </div>
+                                          </div>
+                                          <div class="rating_wrap">
+                                              <div class="rating">
+                                                  <div class="product_rate" style="width:80%"></div>
+                                              </div>
+                                              <span class="rating_num">(21)</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </ng-template>
+                      </owl-carousel-o>
+                  </div>
+                -->
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

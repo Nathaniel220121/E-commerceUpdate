@@ -1,0 +1,237 @@
+<app-header></app-header>
+<div class="banner inner-page">
+    <div id="carouselExampleCaptions" class="carousel slide inner-page-uder" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img [src]="data.bannerImageImgUrl" class="d-block w-100" alt="...">
+                <div class="carousel-caption">
+                    <h4>My Account</h4>
+                    <div class="pagination-cls">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Account</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+<section class="inner-body my-account">
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row mx-auto">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <div class="form-col">
+                        <div class="log-header text-center">
+                            <h5 class="modal-title bold" id="exampleModalLabel">Registration</h5>
+                        </div>
+                        <div class="card form-login border-0">
+
+                            <form class="form" name="registerUserForm" autocomplete="off" [formGroup]="registerUserForm">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <mat-form-field>
+                                            <mat-label>First Name</mat-label>
+                                            <input matInput required placeholder="First name" [formControl]="firstName">
+                                            <mat-error *ngIf="firstName.invalid && firstName.touched">{{nameValidator()}}</mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <mat-form-field>
+                                            <mat-label>Last Name</mat-label>
+                                            <input matInput required placeholder="Last name" [formControl]="lastName">
+                                            <mat-error *ngIf="lastName.invalid && lastName.touched">{{nameValidator()}}</mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <mat-form-field>
+                                            <mat-label>Email ID</mat-label>
+                                            <input matInput required placeholder="Enter Email ID" autocomplete="off" [formControl]="emailID">
+                                            <mat-error *ngIf="emailID.invalid && emailID.touched">{{emailValidator()}}</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <mat-form-field>
+                                            <mat-label>Country Code</mat-label>
+                                            <mat-select required [formControl]="countryCode">
+                                                <mat-select-trigger>
+                                                    {{ countryCode.value }}
+                                                </mat-select-trigger>
+                                                <mat-option *ngFor="let opt of countries" [value]="opt.code">{{opt.code}} - {{opt.name}}</mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="countryCode.invalid">{{validateFormFields()}}</mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <mat-form-field>
+                                            <mat-label>Mobile Number</mat-label>
+                                            <input matInput required placeholder="Enter Mobile Number" [formControl]="phoneNumber">
+                                            <mat-error *ngIf="phoneNumber.invalid">{{phoneNumberValidator()}}</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <!-- <div class="form-group col-md-6">
+                                        <mat-form-field>
+                                            <mat-label>Mobile OTP</mat-label>
+                                            <input matInput required placeholder="Enter Mobile OTP" [formControl]="phoneOtp">
+                                            <mat-error *ngIf="phoneOtp.invalid && phoneOtp.touched">{{validateFormFields()}}</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <mat-form-field>
+                                        <button class="btn-gold w-100 mt-2" [disabled]="phoneNumber.invalid" (click)="sendOTP()">{{otpButton}}</button>
+                                        </mat-form-field>
+                                    </div> -->
+                                    <div class="form-group col-md-6">
+                                        <mat-form-field>
+                                            <mat-label>Password</mat-label>
+                                            <input matInput required placeholder="Enter Password" autocomplete="off" [formControl]="password" [type]="hidep ? 'password' : 'text'" matTooltip="Password should contain 8-12 digits with Upper & Lower case, Number and Special character" [matTooltipPosition]="position.value"
+                                                matTooltipHideDelay="100000" #tooltip="matTooltip" (click)="tooltip.toggle()" aria-label="Button that displays a tooltip that hides when scrolled out of the container">
+                                            <mat-error *ngIf="password.invalid">{{passwordVerifyFirst()}}</mat-error>
+                                            <mat-icon matSuffix class="eye-icon-small" (click)="hidep = !hidep">{{hidep ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <mat-form-field>
+                                            <mat-label>Re-Enter Password</mat-label>
+                                            <input matInput required placeholder="Re-Enter Password" [formControl]="rePassword" [type]="hide ? 'password' : 'text'" matTooltip="Password should match" [matTooltipPosition]="position.value" matTooltipHideDelay="100000" aria-label="Button that displays a tooltip that hides when scrolled out of the container">
+                                            <!-- <mat-error *ngIf="rePassword.invalid">{{passwordVerifySecond()}}</mat-error> -->
+                                            <mat-error *ngIf="rePassword.hasError('notMatching')">
+                                                passwords don't match
+                                            </mat-error>
+                                            <!-- <mat-error *ngIf="registerUserForm.hasError('notSame')">
+                                                Passwords do not match
+                                            </mat-error> -->
+                                            <mat-icon class="eye-icon-small" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        </mat-form-field>
+
+                                    </div>
+                                    <!--
+                                    <div class="form-group col-md-6">
+                                        <mat-form-field>
+                                            <mat-label>Type of Arts?</mat-label>
+                                            <mat-select required (selectionChange)="onChangeType($event)" [formControl]="typeOfArt">
+                                                <mat-option selected value="painting">Painting</mat-option>
+                                                <mat-option value="photography">Photography</mat-option>
+                                                <mat-option value="cutlery">Cutlery</mat-option>
+                                                <mat-option value="crockery">Crockery</mat-option>
+                                                <mat-option value="jewelry">Jewelry</mat-option>
+                                                <mat-option value="fashion">Fashion</mat-option>
+                                                <mat-option value="home_decor">Home Décor</mat-option>
+                                                <mat-option value="home_furnishing">Home Furnishing</mat-option>
+                                                <mat-option value="other">Other</mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="typeOfArt.invalid && typeOfArt.touched">{{validateFormFields()}}</mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="form-group col-md-6" *ngIf="regTypeArtOther">
+                                        <mat-form-field>
+                                            <mat-label>Enter type of ART</mat-label>
+                                            <input matInput placeholder="Enter type of ART here" [formControl]="typeOfArtText">
+                                        </mat-form-field>
+                                    </div>
+                                  -->
+                                    <!-- <div class="form-group col-md-6">
+                                        <mat-form-field>
+                                            <mat-label>Experience in years</mat-label>
+                                            <mat-select required [formControl]="experience">
+                                                <mat-option value="0-5">0-5</mat-option>
+                                                <mat-option value="6-10">6-10</mat-option>
+                                                <mat-option value="16-20">16-20</mat-option>
+                                                <mat-option value="21-25">21-25</mat-option>
+                                                <mat-option value="25+">25+</mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="experience.invalid && experience.touched">{{validateFormFields()}}</mat-error>
+                                        </mat-form-field>
+                                    </div> -->
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <mat-checkbox required [formControl]="checkedConsent"></mat-checkbox><a class="form-check-label font-sm font_common cursor-pointer m-2 pt-1" (click)="popImageC()">Consent of Data <span class="text-danger">*</span></a>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <mat-checkbox required [formControl]="checked"></mat-checkbox><a class="form-check-label font-sm font_common cursor-pointer m-2 pt-1" (click)="popImage()">Terms & Conditions <span class="text-danger">*</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12 text-center mt-3">
+                                        <button type="submit" class="btn-green w-100" (click)="registerUser()">Register</button>
+                                    </div>
+                                    <div class="form-group col-md-12 text-center">
+                                        <p class="text-center font-sm font-bold m-2">OR</p>
+                                    </div>
+                                    <div class="row no-gutters mx-auto">
+                                        <div class="col-sm-6 pe-sm-2">
+                                            <!--button type="button" (click)="getGoogleDetails()" class="btn-google w-100"><img src="../../../assets/images/google-logo.svg" class="me-2" alt="Google">Sign in with Google</button-->
+                                            <div  id="google" > <img src="../../../assets/images/google-logo.svg" class="me-2" alt="Google" style="margin-left: 62px;">Sign in with Google</div>
+                                        </div>
+                                        <div class="col-sm-6 ps-sm-2">
+                                            <button type="button" (click)="getFbDetails()" class="btn-facebook w-100"><img src="../../../assets/images/facebook-logo.svg" class="me-2" alt="Facebook">Continue with Facebook</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div [class]="popupClass">
+        <div class="poper">
+            <div class="container-fluid">
+                <div class="poperHead mb-5">
+                    <div class="row">
+                        <div class="col-lg-12 mx auto">
+                            <h2 class="font-family-2 font-bolder font-lg">{{getData.title}}</h2>
+                            <!-- <p class="poperClose font-lg" (click)="closePopImage()">X</p> -->
+                            <div class="row">
+                                <div class="col-lg-12 mx-auto text-center">
+                                    <div class="m-3">
+                                        <p class="font-family-2 font-regular font-sm text-start break-newline">{{getData.content}}</p>
+                                        <button (click)="closePopImage()" style="width: 80px;" class="btn btn-green">OK</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div [class]="popupClassC">
+        <div class="poper">
+            <div class="container-fluid">
+                <div class="poperHead mb-5">
+                    <div class="row">
+                        <div class="col-lg-12 mx auto">
+                            <h2 class="font-family-2 font-bolder font-lg">{{getData2.title}}</h2>
+                            <div class="row">
+                                <div class="col-lg-12 mx-auto text-center">
+                                    <div class="m-3">
+                                        <p class="font-family-2 font-regular font-sm text-start break-newline">{{getData2.content}}</p>
+                                        <button (click)="closePopImage()" style="width: 80px;" class="btn btn-green">OK</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

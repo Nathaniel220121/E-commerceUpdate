@@ -1,0 +1,84 @@
+<div class="banner inner-page">
+    <div id="carouselExampleCaptions" class="carousel slide inner-page-uder" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img [src]="data.bannerImageImgUrl" class="d-block w-100" alt="...">
+                <div class="carousel-caption">
+                    <h4>Get advice any time</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+<section class="inner-body my-account">
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 right_info">
+                    <h4 class="info_title">{{contactDetails.header}}</h4>
+                    <div class="infor_set">
+                        <ul>
+                            <li><span class="bdr"><i class="fas fa-phone"></i></span><span>{{contactDetails.mobileNo}}</span></li>
+                            <li><span class="bdr"><i class="fas fa-envelope-open"></i></span><span>{{contactDetails.emailId}}</span></li>
+                            <li><span class="bdr" style="width:50px;"><i class="fas fa-map-marker-alt"></i></span><span>{{contactDetails.address}}</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="contact_frm">
+                        <div class="log-header text-center">
+                            <h5 class="modal-title bold" id="exampleModalLabel">Let's talk</h5>
+                        </div>
+                        <div class="card form-login border-0">
+                            <form class="form" name="contactUserForm" [formGroup]="contactUserForm">
+                                <div class="row">
+                                    <div class="form-group mb-3 col-sm-12">
+                                        <mat-form-field>
+                                            <mat-label>Enter Your First Name</mat-label>
+                                            <input matInput required type="text" name="name" placeholder="Enter your First Name" [formControl]="contactfName">
+                                            <mat-error *ngIf="contactfName.invalid">{{validateFormFields()}}</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="form-group mb-3 col-sm-12">
+                                        <mat-form-field>
+                                            <mat-label>Enter Your Last Name</mat-label>
+                                            <input matInput required type="text" name="name" placeholder="Enter your Last Name" [formControl]="contactlName">
+                                            <mat-error *ngIf="contactlName.invalid">{{validateFormFields()}}</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="form-group mb-3 col-sm-12">
+                                        <mat-form-field>
+                                            <mat-label>Enter Your E-Mail</mat-label>
+                                            <input matInput required type="text" name="Email ID" placeholder="Enter your Email" [formControl]="contactEmailID">
+                                            <mat-error *ngIf="contactEmailID.invalid">{{emailValidator()}}</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="form-group mb-3 col-sm-12">
+                                        <mat-form-field>
+                                            <mat-label>Enter Your Phone Number</mat-label>
+                                            <input matInput required type="text" name="Mobile Number" placeholder="Mobile No" [formControl]="contactPhone">
+                                            <mat-error *ngIf="contactPhone.invalid">{{phoneNumberValidator()}}</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="form-group mb-3 col-sm-12">
+                                        <mat-form-field>
+                                            <mat-label>Enter Your Query</mat-label>
+                                            <textarea matInput required type="text" name="query" placeholder="Enter you query" [formControl]="contactComment"></textarea>
+                                            <mat-error *ngIf="contactComment.invalid">{{validateFormFields()}}</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="form-group mb-2">
+                                <button type="submit" class="btn-gold w-100" (click)="sendQueries()">Submit Query</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

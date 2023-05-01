@@ -1,0 +1,336 @@
+<!-- START SECTION BREADCRUMB -->
+<div class="breadcrumb_section bg_gray page-title-mini">
+    <div class="container">
+        <!-- STRART CONTAINER -->
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="page-title">
+                    <h1> Shopping Cart </h1>
+                </div>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Shopping Cart </li>
+                </ol>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- END CONTAINER-->
+</div>
+<!-- END SECTION BREADCRUMB -->
+
+
+
+<!-- START MAIN CONTENT -->
+<div class="main_content">
+
+    <!-- START SECTION SHOP -->
+    <section class="inner-body my-gallery my-events-details">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-md-9">
+                    <div class="d-flex border-bottom pb-3 justify-content-between">
+                        <h6 class="font-regular font-md text-black mb-0">Items in your cart</h6>
+                        <p class="font-regular font-md text-black"><span class="font-bold">({{data.carData.length}})</span> items</p>
+                    </div>
+
+                    <div class="cart-items">
+                        <div class="cart-single-row" *ngFor="let cartItem of data.carData">
+
+                            <div class="row">
+                                <div class="col-md-3 cursor-pointer" [routerLink]="['/market/market-details',cartItem.productId]">
+                                    <img [src]="cartItem.image" class="cart-product-thumb" alt="Image">
+                                </div>
+                                <div class="col-md-3 cursor-pointer" [routerLink]="['/market/market-details',cartItem.productId]">
+                                    <div class="cart-single-header">
+                                        <p>{{cartItem.name | titlecase}}</p>
+                                    </div>
+                                    <p class="font-xs text-black">{{cartItem.description | slice:0:80}}</p>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="cart-single-header">
+                                        <p>Price</p>
+                                    </div>
+                                    <h6 class="font-bolder font-md text-black">Rs. {{cartItem.price}}</h6>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="cart-single-header">
+                                        <p>Quantity</p>
+                                    </div>
+                                    <div>
+                                        <input type="button" value="-" class="minus" (click)="data.decrement(cartItem.productId)">
+                                        <input style="text-align: center;" type="text" name="quantity" value="{{cartItem.qty}}" title="Qty" class="qty" size="1" disabled>
+                                        <input type="button" value="+" class="plus" (click)="data.increment(cartItem.productId)">
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="cart-single-header">
+                                        <p>Total</p>
+                                    </div>
+                                    <h6 class="font-bolder font-md text-black">Rs. {{cartItem.price * cartItem.qty}}</h6>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="cart-single-header">
+                                        <p>Remove</p>
+                                    </div>
+                                    <a class="remove-button-color" (click)="data.removeItemFromCart(cartItem.productId)">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-trash"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+
+                    <div class="cart-summery ms-xl-5">
+                        <h6 class="font-bolder border-bottom mb-0">Summary</h6>
+                        <ul class="mb-0 border-bottom">
+                            <li>Item<span class="font-bolder">{{data.carData.length}}</span></li>
+                            <li>Item Total<span class="font-bolder">Rs. {{data.totalPrice}}</span></li>
+                            <li>Discount<span class="font-bolder">Rs. {{data.totalDiscount}}</span></li>
+                        </ul>
+                        <h6 class="d-flex justify-content-between font-bolder mb-0">Total Amount<span>Rs. {{data.total}}</span></h6>
+                        <div class="px-3">
+                            <a type="button" class="btn-green w-100 my-4" (click)="buyProduct()">Checkout</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END SECTION SHOP -->
+
+    <div>
+        <form type="hidden" method="get" #payPalFormCart [action]="postLink" name="{{payPal_form}}" id="paypalfrmTransaction">
+
+        </form>
+    </div>
+    <div>
+        <form type="hidden" method="post" #payTmFormCart action="https://securegw.paytm.in/theia/processTransaction" name="{{paytm_form}}" id="paytmfrmTransaction">
+            <div *ngFor="let item of checkSumHash | keyvalue"> 
+            <input name="{{item.key}}" type="hidden" value="{{item.value}}" />
+            
+          
+           
+          </div>
+        </form>
+        
+    </div>
+
+
+    <div class="modal fade address-pup" id="address_cart_pup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Please provide the details to proceed</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <div *ngFor="let cartItem of data.carData">
+                <input type="hidden" name="quantity" value="{{cartItem.qty}}" title="Qty" class="qty" size="1" disabled>
+               <input type="hidden" name="productId" class="productId" value="{{cartItem.productId}}" >
+               </div>
+                <input name="WEBSITE" type="hidden" value="{{website}}" />
+                <div class="modal-body">
+                    <div class="card form-login border-0">
+                        <form class="form" name="adressForm" autocomplete="off" [formGroup]="adressForm">
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                    <div class="row">
+                                        <div class="col-md-12 form-group mb-3">
+                                            <p class="forgot-head">Billing Details</p>
+                                        </div>
+                                        <div class="col-md-12 form-group mb-3">
+                                            <mat-form-field>
+                                                <mat-label>Adress Line 1</mat-label>
+                                                <input matInput required placeholder="Enter Adress line 1" [formControl]="billAdressOne">
+                                                <mat-error *ngIf="billAdressOne.invalid">{{validateFormFields()}}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-12 form-group mb-3">
+                                            <mat-form-field>
+                                                <mat-label>Adress Line 2</mat-label>
+                                                <input matInput required placeholder="Enter Adress line 1" [formControl]="billAdressTwo">
+                                                <mat-error *ngIf="billAdressTwo.invalid">{{validateFormFields()}}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <mat-form-field>
+                                                <mat-label>City</mat-label>
+                                                <input matInput required placeholder="Enter your city" [formControl]="billAdressCity">
+                                                <mat-error *ngIf="billAdressCity.invalid">{{validateFormFields()}}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <mat-form-field>
+                                                <mat-label>State</mat-label>
+                                                <!-- <input matInput required placeholder="Enter your state" [formControl]="billAdressState"> -->
+                                                <mat-select required placeholder="Select your state" [formControl]="billAdressState">
+                                                    <mat-option *ngFor="let state of stateList" [value]="state.name">{{state.name}}</mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="billAdressState.invalid">{{validateFormFields()}}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <mat-form-field>
+                                                <mat-label>Pin code</mat-label>
+                                                <input matInput required placeholder="Enter Pin code" [formControl]="billAdressPCode">
+                                                <mat-error *ngIf="billAdressPCode.invalid">{{pinCodeValidator()}}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <mat-form-field>
+                                                <mat-label>GST number</mat-label>
+                                                <input matInput placeholder="Enter your GST number" [formControl]="userGST">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 form-group mb-3">
+                                    <div class="row">
+                                        <div class="col-md-12 form-group mb-3">
+                                            <p class="forgot-head">Shipping Details</p>
+                                            <p class="forgot-head">(
+                                                <mat-checkbox (change)="addSameFields($event)"> <span class="forgot-head font-family">Same as billing details</span></mat-checkbox>)</p>
+                                        </div>
+                                        <div class="col-md-12 form-group mb-3">
+                                            <mat-form-field>
+                                                <mat-label>Adress Line 1</mat-label>
+                                                <input matInput required placeholder="Enter Adress Line 1" [formControl]="shipAdressOne">
+                                                <mat-error *ngIf="shipAdressOne.invalid">{{validateFormFields()}}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-12 form-group mb-3">
+                                            <mat-form-field>
+                                                <mat-label>Adress Line 2</mat-label>
+                                                <input matInput required placeholder="Enter Adress Line 2" [formControl]="shipAdressTwo">
+                                                <mat-error *ngIf="shipAdressTwo.invalid">{{validateFormFields()}}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <mat-form-field>
+                                                <mat-label>City</mat-label>
+                                                <input matInput required placeholder="Enter your city" [formControl]="shipAdressCity">
+                                                <mat-error *ngIf="shipAdressCity.invalid">{{validateFormFields()}}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <mat-form-field>
+                                                <mat-label>State</mat-label>
+                                                <!-- <input matInput required placeholder="Enter your state" [formControl]="shipAdressState"> -->
+                                                <mat-select required placeholder="Select your state" [formControl]="shipAdressState">
+                                                    <mat-option *ngFor="let state of stateList" [value]="state.name">{{state.name}}</mat-option>
+
+                                                </mat-select>
+                                                <mat-error *ngIf="shipAdressState.invalid">{{validateFormFields()}}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <mat-form-field>
+                                                <mat-label>Pin code</mat-label>
+                                                <input matInput required placeholder="Enter Pin code" [formControl]="shipAdressPCode">
+                                                <mat-error *ngIf="shipAdressPCode.invalid">{{pinCodeValidator()}}</mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="form-group mb-2">
+                                    <button type="submit" [disabled]="adressForm.invalid" (click)="setAdress()" class="btn-green w-100">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade address-show-pup address-pup" id="address_cart_show_pup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Proceed to Payment</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="card form-login border-0">
+                        <div class="row mt-3">
+                            <div class="col-md-6 form-group mb-3">
+                                <div class="border-solid">
+                                    <div class="row">
+                                        <div class="col-md-12 form-group mb-2">
+                                            <p class="forgot-head font-l">Billing Details</p>
+                                        </div>
+                                        <div class="col-md-12 form-group mb-3">
+                                            <h3 class="m-0 font-sm">{{data.firstName}} {{data.lastName}}</h3>
+                                            <p class="m-0 font-sm">{{addrsDetails.billingAddressLine1}}</p>
+                                            <p class="m-0 font-sm">{{addrsDetails.billingAddressLine2}} - {{addrsDetails.billingPostalCode}}</p>
+                                            <p class="m-0 font-sm">{{addrsDetails.billingCityName}} {{addrsDetails.billingStateName}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 form-group mb-3">
+                                <div class="border-solid">
+                                    <div class="row">
+                                        <div class="col-md-12 form-group mb-2">
+                                            <p class="forgot-head font-l">Shipping Details</p>
+                                        </div>
+                                        <div class="col-md-12 form-group mb-3">
+                                            <h3 class="m-0 font-sm">{{data.firstName}} {{data.lastName}}</h3>
+                                            <p class="m-0 font-sm">{{addrsDetails.shippingAddressLine1}}</p>
+                                            <p class="m-0 font-sm">{{addrsDetails.shippingAddressLine2}} - {{addrsDetails.shippingPostalCode}}</p>
+                                            <p class="m-0 font-sm">{{addrsDetails.shippingCityName}} {{addrsDetails.shippingStateName}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 form-group mb-3">
+                                <div class="border-solid">
+                                    <div class="row">
+                                        <div class="col-md-12 form-group">
+                                            <p class="forgot-head font-xl-green">Payment Summary</p>
+                                        </div>
+                                        <div class="col-sm-12 form-group">
+                                            <p class="m-0 grey-bg font-sm">Actual Amount <span class="float-end">{{checkOutAmount | number: '1.0-0'}}</span></p>
+                                        </div>
+                                        <div class="col-sm-12 form-group">
+                                            <p class="m-0 white-bg font-sm">GST 18% <span class="float-end">{{gstAmount | number: '1.0-0'}}</span></p>
+                                        </div>
+                                        <div class="col-sm-12 form-group">
+                                            <p class="m-0 hightlight-bg font-sm">Total amount to be paid <span class="float-end">{{checkOutAmount+gstAmount | number: '1.0-0'}}</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                <div class="row">
+                                    <div class="col-md-12 form-group mb-1">
+                                        <p class="forgot-head font-xl-green">Pay Now Using</p>
+                                    </div>
+                                    <div class="col-sm-12 form-group">
+                                        <span class="m-0 white-bg font-sm payButtonPayTm m-2 cursor-pointer" (click)="payNow('payTm')"><i class="fas fa-rupee-sign"></i> PayTm</span>
+                                        <!--span class="m-0 grey-bg font-sm payButtonPaypal m-2 cursor-pointer" (click)="payNow('payPal')"><i class="fab fa-paypal"></i> Pay Pal</span-->
+                                        <span class="m-0 grey-bg font-sm cancelButton m-2 cursor-pointer" data-bs-dismiss="modal" aria-label="Close">Cancel</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

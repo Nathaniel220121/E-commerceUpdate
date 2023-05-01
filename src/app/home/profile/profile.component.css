@@ -1,0 +1,29 @@
+.pos {
+    top: -38px;
+    float: right;
+    position: relative;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.invoiceTable table {
+    width: 100%;
+    border: 1px solid black;
+    font-size: 12px;
+}
+
+.invoiceTable table th {
+    background-color: #b5b2b2;
+    border: 1px solid black;
+}
+
+.invoiceTable table td {
+    border: 1px solid black;
+}
+
+.invoiceTable table .bold {
+    font-weight: 800;
+}
